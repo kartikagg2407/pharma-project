@@ -19,7 +19,7 @@
                     <a href="about.html">
                         <button>About us</button>
                     </a>
-                    <button>Doctor's Advice</button>
+                    <a href="advice.html"><button>Doctor's Advice</button></a>
                     <div class="dropdown">
                         <button class="dropbtn">Categories</button>
                         <div class="dropdown-content">
@@ -50,7 +50,7 @@
             </div>
 
             <div class="right-nav">
-                <button>Cart</button>
+                <a href="cart.html"><button>Cart</button></a>
                 <a href="login.html">
                     <button>Login </button>
                 </a>
@@ -263,14 +263,14 @@
             <div class="footer-column">
                 <h3>Company</h3>
                 <ul>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="about.html">About Us</a></li>
                 </ul>
             </div>
 
             <div class="footer-column">
                 <h3>Need Help</h3>
                 <ul>
-                    <li><a href="#">FAQs</a></li>
+                    <li><a href="FAQ.html">FAQs</a></li>
                 </ul>
             </div>
 
@@ -278,29 +278,28 @@
                 <h3>Our Services</h3>
                 <ul>
                     <li><a href="#">Order Medicine</a></li>
-                    <li><a href="#">Healthcare Products</a></li>
+                    <li><a href="healthcare2.html">Healthcare Products</a></li>
                 </ul>
             </div>
 
-            <!-- Social Media Links -->
             <div class="footer-column social-links">
                 <h3>Follow Us</h3>
                 <ul class="social-icons">
                     <li>
                         <a href="https://instagram.com" target="_blank">
-                            <img src="instagram-1-svgrepo-com.svg" alt="Instagram" class="icon" />
+                            <img src="assets/instagram-1-svgrepo-com.svg" alt="Instagram" class="icon" />
                             Instagram
                         </a>
                     </li>
                     <li>
                         <a href="https://www.facebook.com/" target="_blank">
-                            <img src="facebook-color-svgrepo-com.svg" alt="Instagram" class="icon" />
+                            <img src="assets/facebook-color-svgrepo-com.svg" alt="Instagram" class="icon" />
                             Facebook
                         </a>
                     </li>
                     <li>
                         <a href="https://www.linkedin.com/notifications/?filter=all" target="_blank">
-                            <img src="linkedin-svgrepo-com.svg" alt="Instagram" class="icon" />
+                            <img src="assets/linkedin-svgrepo-com.svg" alt="Instagram" class="icon" />
                             LinkedIn
                         </a>
                     </li>
@@ -309,6 +308,37 @@
 
         </div>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const buttons = document.querySelectorAll(".add-cart-btn");
+      
+          buttons.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+              const productCard = btn.closest(".product-card");
+              const name = productCard.querySelector("p:nth-of-type(1)").textContent.split(":")[1].trim();
+              const type = productCard.querySelector("p:nth-of-type(2)").textContent.split(":")[1].trim();
+              const quantity = productCard.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim();
+              const priceText = productCard.querySelector("p:nth-of-type(4)").textContent.split(":")[1].trim();
+              const price = parseInt(priceText.replace("Rs", ""));
+      
+              const product = { name, type, quantity, price, quantityAdded: 1 };
+      
+              let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      
+              const existing = cart.find(item => item.name === name);
+              if (existing) {
+                existing.quantityAdded += 1;
+              } else {
+                cart.push(product);
+              }
+      
+              localStorage.setItem("cart", JSON.stringify(cart));
+              alert(`${name} added to cart.`);
+            });
+          });
+        });
+      </script>
+      
 
 </body>
 
